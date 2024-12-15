@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../Intent Login App" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../RegistrationForm-androidstudio" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../Relative Layout" vcs="Git" />

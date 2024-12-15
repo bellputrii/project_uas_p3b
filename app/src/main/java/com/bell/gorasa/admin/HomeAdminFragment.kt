@@ -1,9 +1,10 @@
-package com.bell.gorasa.user
+package com.bell.gorasa.admin
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bell.gorasa.AdminAdapter
 import com.bell.gorasa.R
@@ -22,8 +23,9 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inisialisasi ListView
+        // Inisialisasi RecyclerView
         recyclerView = view.findViewById(R.id.menuRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())  // Mengatur LayoutManager
         itemList = ArrayList()
 
         // Mengambil data dari API
@@ -41,8 +43,8 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
                     if (menu != null) {
                         itemList.addAll(menu)
 
-                        // Menghubungkan data ke ListView menggunakan adapter
-                        adapteradmin = AdminAdapter(requireContext(), recyclerView)
+                        // Menghubungkan data ke RecyclerView menggunakan adapter
+                        adapteradmin = AdminAdapter(requireContext(), itemList)
                         recyclerView.adapter = adapteradmin
                     }
                 } else {
