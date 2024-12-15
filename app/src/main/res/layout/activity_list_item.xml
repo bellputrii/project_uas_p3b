@@ -4,9 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:padding="16dp"
     android:gravity="center_vertical"
-    android:background="?attr/selectableItemBackground">
+    android:background="@color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="8dp">
+
+    <!-- Gambar -->
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/food"
+        android:layout_marginEnd="16dp" />
 
     <!-- ID -->
     <TextView
@@ -29,12 +39,21 @@
         android:textColor="@color/black"
         android:paddingStart="8dp" />
 
-    <!-- Icon Edit -->
+    <!-- Icon Order -->
+    <ImageView
+        android:id="@+id/icOrder"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_order"
+        android:layout_marginStart="8dp" />
+
+    <!-- Icon Bookmark -->
     <ImageView
         android:id="@+id/icbookmark"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/ic_boookmark_border"
         android:contentDescription="Bookmark"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:layout_marginStart="8dp" />
 </LinearLayout>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,14 +9,16 @@
         android:name="com.bell.gorasa.user.HomeUserFragment"
         android:label="home_user"
         tools:layout="@layout/fragment_home_user" />
+
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.bell.gorasa.user.BookmarkFragment"
         android:label="bookmark_user"
         tools:layout="@layout/fragment_bookmark" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.bell.gorasa.user.ProfileFragment"
-        android:label="fragment_inbox"
+        android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
