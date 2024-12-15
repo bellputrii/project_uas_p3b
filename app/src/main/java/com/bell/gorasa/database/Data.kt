@@ -1,10 +1,11 @@
 package com.bell.gorasa.database
 
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class Data(
-    @SerializedName("_id")
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     @SerializedName("food_name")
     val foodname: String,
     @SerializedName("price")

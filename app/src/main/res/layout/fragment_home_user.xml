@@ -11,7 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:ignore="ExtraText">
 
         <!-- Judul halaman Menu -->
         <TextView
@@ -36,8 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/buttonContainer"
-            tools:listitem="@layout/activity_list_item" />
-        />
+            tools:listitem="@layout/activity_list_item" />/>
 
         <!-- Kontainer tombol Logout -->
         <LinearLayout

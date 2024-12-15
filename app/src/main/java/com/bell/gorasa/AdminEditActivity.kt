@@ -20,7 +20,7 @@ class AdminEditActivity : AppCompatActivity() {
     private lateinit var etFoodDescription: EditText
     private lateinit var btnUpdate: Button
     private lateinit var btnCancel: Button
-    private var foodId: String? = null
+    private var foodId: Int? = null  // Ubah menjadi Int?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +33,10 @@ class AdminEditActivity : AppCompatActivity() {
         btnCancel = findViewById(R.id.btnCancel)
 
         // Terima data dari Intent
-        foodId = intent.getStringExtra("_id") // Menerima menu_id yang dikirim dari HomeAdminFragment
+        foodId = intent.getStringExtra("_id")?.toIntOrNull() // Mengonversi String ke Int
         Log.d("AdminEditActivity", "Received food ID: $foodId")
 
-        // Jika foodId tidak ada, beri peringatan dan keluar dari activity
+        // Jika foodId tidak ada atau tidak valid, beri peringatan dan keluar dari activity
         if (foodId == null) {
             Toast.makeText(this, "Invalid food ID", Toast.LENGTH_SHORT).show()
             finish()
@@ -60,11 +60,10 @@ class AdminEditActivity : AppCompatActivity() {
     }
 
     // Fungsi untuk mengambil data menu berdasarkan ID
-    // Fungsi untuk mengambil data menu berdasarkan ID
-    private fun fetchMenuData(id: String) {
+    private fun fetchMenuData(id: Int) {
         val apiService = APIClient.getInstance()
 
-        apiService.getMenuById(id).enqueue(object : Callback<Data> {
+        apiService.getMenuById(id.toString()).enqueue(object : Callback<Data> {  // Kirim id sebagai String ke API
             override fun onResponse(call: Call<Data>, response: Response<Data>) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -89,7 +88,7 @@ class AdminEditActivity : AppCompatActivity() {
     }
 
     // Fungsi untuk update data menu
-    private fun updateMenu(id: String) {
+    private fun updateMenu(id: Int) {
         val updatedName = etFoodName.text.toString().trim()
         val updatedPrice = etFoodPrice.text.toString().trim()
         val updatedDescription = etFoodDescription.text.toString().trim()
@@ -97,14 +96,14 @@ class AdminEditActivity : AppCompatActivity() {
         if (updatedName.isNotBlank() && updatedPrice.isNotBlank() && updatedDescription.isNotBlank()) {
             // Buat objek Data baru untuk update
             val updatedData = Data(
-                id = id,
+                id = id,  // Kirim id yang sesuai (Int)
                 foodname = updatedName,
                 price = updatedPrice,
                 description = updatedDescription
             )
 
             val apiService = APIClient.getInstance()
-            apiService.updateMenu(id, updatedData).enqueue(object : Callback<Data> {
+            apiService.updateMenu(id.toString(), updatedData).enqueue(object : Callback<Data> {  // Kirim id sebagai String
                 override fun onResponse(call: Call<Data>, response: Response<Data>) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@AdminEditActivity, "Menu updated successfully", Toast.LENGTH_SHORT).show()

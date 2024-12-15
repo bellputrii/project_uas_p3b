@@ -49,7 +49,7 @@
 
         <EditText
             android:id="@+id/et_foodname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@color/white"
@@ -72,7 +72,7 @@
 
         <EditText
             android:id="@+id/et_foodprice"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@color/white"
@@ -95,7 +95,7 @@
 
         <EditText
             android:id="@+id/et_fooddescription"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@color/white"

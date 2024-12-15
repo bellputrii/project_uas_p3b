@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yellow"
-    tools:context=".AdminAddActivity">
+    tools:context=".admin.AdminAddActivity">
 
     <!-- Title Text -->
     <TextView
@@ -47,9 +47,9 @@
             android:textStyle="bold"
             android:layout_marginBottom="10dp" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_foodname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@color/white"
@@ -70,9 +70,9 @@
             android:textStyle="bold"
             android:layout_marginBottom="10dp" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_foodprice"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@color/white"
@@ -93,9 +93,9 @@
             android:textStyle="bold"
             android:layout_marginBottom="10dp" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_fooddescription"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="@color/white"

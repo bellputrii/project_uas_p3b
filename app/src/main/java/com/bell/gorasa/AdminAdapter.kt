@@ -1,14 +1,15 @@
-package com.bell.gorasa
+package com.bell.gorasa;
 
-import android.content.Context
-import android.content.Intent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.bell.gorasa.database.Data
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bell.gorasa.admin.AdminEditActivity
+import com.bell.gorasa.database.Data;
 
 class AdminAdapter(
     private val context: Context,
@@ -39,6 +40,17 @@ class AdminAdapter(
                 putExtra("food_description", foodItem.description)  // Asumsi ada deskripsi makanan
             }
             context.startActivity(intent)
+        }
+
+        // Set onClickListener untuk icEdit
+        holder.icEdit.setOnClickListener {
+            val editIntent = Intent(context, AdminEditActivity::class.java).apply {
+                putExtra("_id", foodItem.id)  // Mengirim ID item
+                putExtra("foodname", foodItem.foodname)  // Mengirim nama item
+                putExtra("price", foodItem.price)  // Mengirim harga item
+                putExtra("description", foodItem.description)  // Mengirim deskripsi item
+            }
+            context.startActivity(editIntent)
         }
     }
 
