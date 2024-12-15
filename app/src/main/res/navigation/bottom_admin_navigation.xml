@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeAdminFragment"
-        android:name="com.bell.gorasa.user.HomeUserFragment"
+        android:name="com.bell.gorasa.admin.HomeAdminFragment"
         android:label="home_user"
         tools:layout="@layout/fragment_home_admin" />
     <fragment
         android:id="@+id/profileAdminFragment"
-        android:name="com.bell.gorasa.user.ProfileFragment"
+        android:name="com.bell.gorasa.admin.ProfileFragment"
         android:label="fragment_inbox"
         tools:layout="@layout/fragment_profile2" />
 </navigation>

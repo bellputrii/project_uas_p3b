@@ -1,9 +1,10 @@
-// AdminActivity.kt
 package com.bell.gorasa
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bell.gorasa.admin.HomeAdminFragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.bell.gorasa.databinding.ActivityAdminBinding
 
 class AdminActivity : AppCompatActivity() {
@@ -15,11 +16,11 @@ class AdminActivity : AppCompatActivity() {
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Memasukkan fragment HomeAdminFragment saat AdminActivity pertama kali dijalankan
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_admin, HomeAdminFragment())
-                .commit()
-        }
+        // Setup Navigation Component
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_admin) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
+
+        // Connect BottomNavigationView with NavController
+        binding.bottomNavigationAdmin.setupWithNavController(navController)
     }
 }
