@@ -21,8 +21,8 @@ interface APIService {
     fun addMenu(@Body rawJson: RequestBody): Call<Data>  // Mengirimkan objek Data
 
     @POST("gorasa/{id}")
-    fun updateMenu(@Path("id") id: String, @Body data: Data): Call<Data>  // Mengirimkan objek Data
+    fun updateMenu(@Path("id") id: String, @Body data: RequestBody): Call<Data>  // Mengirimkan objek Data
 
     @DELETE("gorasa/{id}")
-    fun deleteMenu(@Path("id") id: String): Call<Data>  // Menghapus data berdasarkan ID
+    fun deleteMenu(@Path("id") id: String): Call<Data>
 }

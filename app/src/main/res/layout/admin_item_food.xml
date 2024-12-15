@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Rounded Image -->
+    <ImageView
+        android:id="@+id/imgThumbnail"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/food"
+        android:contentDescription="Thumbnail Image"
+        android:background="@drawable/rounded_background" />
+    <!-- ID -->
+    <TextView
+        android:id="@+id/txtId"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <!-- Nama -->
+    <TextView
+        android:id="@+id/txtNama"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nama Item"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:paddingStart="8dp" />
+
+    <!-- Icon Edit -->
+    <ImageView
+        android:id="@+id/iconEdit"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_edit"
+        android:contentDescription="Edit Icon"
+        android:padding="4dp" />
+
+    <!-- Icon View -->
+    <ImageView
+        android:id="@+id/iconView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_eyes"
+        android:contentDescription="View Icon"
+        android:padding="4dp" />
+
+    <!-- Icon Delete -->
+    <ImageView
+        android:id="@+id/iconDelete"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_delete"
+        android:contentDescription="Delete Icon"
+        android:padding="4dp" />
+
+</LinearLayout>
