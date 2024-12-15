@@ -9,6 +9,9 @@ import com.bell.gorasa.database.Data
 import com.bell.gorasa.databinding.ActivityAdminAddBinding
 import com.bell.gorasa.network.APIClient
 import com.bell.gorasa.network.APIService
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,6 +20,7 @@ class AdminAddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdminAddBinding
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminAddBinding.inflate(layoutInflater)
@@ -35,23 +39,28 @@ class AdminAddActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Buat objek data baru
-            val newMenu = Data(
-                id = 0, // Gunakan ID default, jika ID di-generate otomatis di backend
-                foodname = name,
-                price = price,
-                description = description
+            // Buat objek JSON
+            val jsonObject = JSONObject().apply {
+                put("foodname", name)
+                put("price", price)
+                put("description", description)
+            }
+
+            // Membuat request body dengan tipe application/json
+            val requestBody = RequestBody.create(
+                "application/json".toMediaTypeOrNull(),
+                jsonObject.toString()
             )
 
             // Kirim request ke API
-            apiService.addMenu(newMenu).enqueue(object : Callback<Data> {
+            apiService.addMenu(requestBody).enqueue(object : Callback<Data> {
                 override fun onResponse(call: Call<Data>, response: Response<Data>) {
                     if (response.isSuccessful && response.body() != null) {
                         Toast.makeText(this@AdminAddActivity, "Menu berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
                         // Arahkan pengguna kembali ke halaman admin
                         val intent = Intent(this@AdminAddActivity, AdminActivity::class.java)
                         startActivity(intent)
-//                        finish() // Tutup halaman ini
+                        finish() // Menutup halaman ini
                     } else {
                         Toast.makeText(this@AdminAddActivity, "Gagal menambahkan menu: ${response.message()}", Toast.LENGTH_SHORT).show()
                     }

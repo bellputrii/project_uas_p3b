@@ -26,7 +26,8 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
     private lateinit var itemList: ArrayList<Data>
     private lateinit var adapteradmin: AdminAdapter
     private lateinit var btnLogout: Button
-    private lateinit var btnTambahData: Button // Tambahkan variabel untuk tombol tambah data
+    private lateinit var btnTambahData: Button
+    private lateinit var btnRefresh: Button // Tambahkan tombol refresh
 
     private val apiService: APIService = APIClient.getInstance()
 
@@ -44,18 +45,24 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
 
         // Inisialisasi tombol-tombol
         btnLogout = view.findViewById(R.id.btnLogout)
-        btnTambahData = view.findViewById(R.id.btnTambahData)  // Inisialisasi tombol tambah data
+        btnTambahData = view.findViewById(R.id.btnTambahData)
+        btnRefresh = view.findViewById(R.id.btnRefresh) // Inisialisasi tombol refresh
 
-        // Tambahkan event listener untuk tombol tambah data
+        // Event listener untuk tombol tambah data
         btnTambahData.setOnClickListener {
-            // Membuka AdminAddActivity untuk menambah menu baru
             val intent = Intent(requireContext(), AdminAddActivity::class.java)
-            startActivityForResult(intent, ADD_MENU_REQUEST_CODE) // Gunakan startActivityForResult
+            startActivityForResult(intent, ADD_MENU_REQUEST_CODE)
         }
 
-        // Tambahkan event listener untuk tombol logout
+        // Event listener untuk tombol logout
         btnLogout.setOnClickListener {
-            showLogoutConfirmation() // Panggil metode untuk menampilkan dialog konfirmasi
+            showLogoutConfirmation()
+        }
+
+        // Event listener untuk tombol refresh
+        btnRefresh.setOnClickListener {
+            fetchMenu() // Panggil untuk mengambil data ulang dari API
+            Toast.makeText(requireContext(), "Data refreshed", Toast.LENGTH_SHORT).show()
         }
 
         // Mengambil data dari API
@@ -63,7 +70,6 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
 
         // Set listener untuk mendengarkan hasil dari AdminAddActivity
         requireActivity().supportFragmentManager.setFragmentResultListener("menuAdded", viewLifecycleOwner) { _, _ ->
-            // Panggil fungsi untuk memperbarui data setelah menu baru ditambahkan
             fetchMenu()
         }
     }
@@ -74,10 +80,10 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
                 if (response.isSuccessful) {
                     val menu = response.body()
                     if (menu != null) {
-                        itemList.clear() // Clear the list before adding new data
+                        itemList.clear()
                         itemList.addAll(menu)
 
-                        // Menghubungkan data ke RecyclerView menggunakan adapter
+                        // Menghubungkan data ke RecyclerView
                         adapteradmin = AdminAdapter(requireContext(), itemList)
                         recyclerView.adapter = adapteradmin
                     }
@@ -93,13 +99,10 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
     }
 
     private fun showLogoutConfirmation() {
-        // Menampilkan dialog konfirmasi logout
         AlertDialog.Builder(requireContext())
             .setTitle("Konfirmasi Logout")
             .setMessage("Apakah Anda yakin ingin keluar dari aplikasi?")
-            .setPositiveButton("Ya") { _, _ ->
-                requireActivity().finishAffinity() // Menutup semua aktivitas dan keluar dari aplikasi
-            }
+            .setPositiveButton("Ya") { _, _ -> requireActivity().finishAffinity() }
             .setNegativeButton("Tidak", null)
             .show()
     }
