@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".user.ProfileFragment">
+
+    <!-- Background Card for Profile -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:elevation="8dp"
+        android:radius="16dp"
+        android:backgroundTint="@color/white">
+
+        <!-- Profile Image Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <!-- Profile Picture -->
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profile"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="Profile Description"/>
+
+            <!-- Name of the User -->
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belda Putri Pramono"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"
+                android:gravity="center"/>
+
+            <!-- User Role/Subtitle -->
+            <TextView
+                android:id="@+id/user_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Software Engineer"
+                android:textColor="@color/graysoft"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Information Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="16dp"
+        android:background="@color/graysoft"
+        android:layout_alignParentBottom="true">
+
+        <!-- Email Address -->
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="john.doe@example.com"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Phone Number -->
+        <TextView
+            android:id="@+id/user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+1 234 567 890"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Location -->
+        <TextView
+            android:id="@+id/user_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New York, USA"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Edit Profile Button -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"/>
+    </LinearLayout>
+
+</FrameLayout>

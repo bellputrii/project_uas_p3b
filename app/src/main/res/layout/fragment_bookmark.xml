@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    tools:context=".user.BookmarkFragment">
+
+    <!-- LinearLayout untuk mengatur tata letak elemen di dalam fragment -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Judul halaman Bookmark -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bookmark"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp"/>
+
+        <!-- ListView untuk menampilkan daftar makanan yang sudah di-bookmark -->
+        <ListView
+            android:id="@+id/bookmarkListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</FrameLayout>

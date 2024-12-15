@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    tools:context=".DetailActivity">
+
+    <TextView
+        android:id="@+id/txt2_data_menu_makanan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detail Menu Makanan"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_margin="30dp"
+        android:textSize="28sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/tv_dtl_name_food"
+            android:text="Black Paper Noodle"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:padding="13dp" />
+
+        <TextView
+            android:id="@+id/tv_dtl_price_food"
+            android:text="IDR 35000"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:padding="13dp" />
+
+        <!-- Wrap the description text with ScrollView -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fillViewport="true">
+
+            <TextView
+                android:id="@+id/tv_dtl_description_food"
+                android:text="Mie dengan cita rasa khas lada hitam yang menggugah selera. Dimasak dengan saus lada hitam yang kaya rasa, mie ini disajikan bersama potongan daging sapi atau ayam yang empuk, paprika, dan bawang bombay. Tekstur mie yang kenyal berpadu sempurna dengan aroma pedas gurih, menjadikannya pilihan tepat untuk pecinta makanan beraroma kuat dan berbumbu. Cocok dinikmati selagi hangat!"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:padding="13dp" />
+        </ScrollView>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_back"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Kembali"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:background="@color/blue"
+        android:textColor="@color/yellow"
+        android:elevation="5dp" />
+
+</LinearLayout>

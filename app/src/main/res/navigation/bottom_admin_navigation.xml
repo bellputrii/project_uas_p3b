@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/homeAdminFragment">
+
+    <fragment
+        android:id="@+id/homeAdminFragment"
+        android:name="com.bell.gorasa.user.HomeUserFragment"
+        android:label="home_user"
+        tools:layout="@layout/fragment_home_admin" />
+    <fragment
+        android:id="@+id/profileAdminFragment"
+        android:name="com.bell.gorasa.user.ProfileFragment"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_profile2" />
+</navigation>

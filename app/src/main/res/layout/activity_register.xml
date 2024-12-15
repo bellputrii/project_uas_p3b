@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Icon -->
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_gorasa"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp" />
+
+    <!-- Username Input -->
+    <EditText
+        android:id="@+id/et_username_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="text"
+        android:textColor="@color/yellow"
+        android:textColorHint="@color/yellow"
+        android:backgroundTint="@color/blue"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/et_password_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:textColor="@color/yellow"
+        android:inputType="textPassword"
+        android:textColorHint="@color/yellow"
+        android:backgroundTint="@color/blue"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Confirm Password Input -->
+    <EditText
+        android:id="@+id/et_confirmpass_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:textColor="@color/yellow"
+        android:inputType="textPassword"
+        android:textColorHint="@color/yellow"
+        android:backgroundTint="@color/blue"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Register Button -->
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="Register"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        android:layout_marginBottom="15dp" />
+
+    <!-- Login Link -->
+    <TextView
+        android:id="@+id/txtLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Log in here."
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

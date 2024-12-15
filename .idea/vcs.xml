@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Intent Login App" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../RegistrationForm-androidstudio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Relative Layout" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../UTS-BUGFIX/Soal_UAS_PPPB" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../calculator-use-kotlin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../datepicker-spinner-androidstudio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../kalkulator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../loginpage" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../presensi_project" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../relativelayout-use-kotlin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../simple-sign-up-kotlin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../taskreminder-application" vcs="Git" />
+  </component>
+</project>
