@@ -3,14 +3,12 @@ package com.bell.gorasa
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bell.gorasa.admin.AdminEditActivity
 import com.bell.gorasa.database.Data
+import com.bell.gorasa.databinding.ActivityAdminListItemBinding
 import com.bell.gorasa.network.APIClient
 import com.bell.gorasa.network.APIService
 import retrofit2.Call
@@ -18,65 +16,38 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AdminAdapter(
-    private val context: Context,
-    private val itemList: MutableList<Data>  // Make itemList mutable to modify it
+    private val context: Context
 ) : RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
 
     private val apiService: APIService = APIClient.getInstance()
+    private var itemList: MutableList<Data> = mutableListOf()
+
+    // Method untuk memperbarui data itemList
+    fun setItemList(newItemList: List<Data>) {
+        itemList = newItemList.toMutableList()
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.activity_admin_list_item, parent, false)
-        return AdminViewHolder(view)
+        val binding = ActivityAdminListItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return AdminViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: AdminViewHolder, position: Int) {
         val foodItem = itemList[position]
-
-        // Display data in the respective views
-        holder.txtId.text = (position + 1).toString()  // Item ID (order number)
-        holder.txtNama.text = foodItem.foodname ?: ""  // Item name (foodname)
-        holder.icEdit.setImageResource(R.drawable.ic_edit)  // Edit icon
-        holder.icDelete.setImageResource(R.drawable.ic_delete)  // Delete icon
-        holder.icView.setImageResource(R.drawable.ic_eyes)  // View icon
-
-        // Set onClickListener for the item in RecyclerView
-        holder.itemView.setOnClickListener {
-            // Open DetailActivity and send data
-            val intent = Intent(context, DetailActivity::class.java).apply {
-                putExtra("food_name", foodItem.foodname)
-                putExtra("food_price", foodItem.price)  // Assuming price exists in foodItem
-                putExtra("food_description", foodItem.description)  // Assuming description exists in foodItem
-            }
-            context.startActivity(intent)
-        }
-
-        // Set onClickListener for Edit icon
-        holder.icEdit.setOnClickListener {
-            val editIntent = Intent(context, AdminEditActivity::class.java).apply {
-                putExtra("_id", foodItem.id)  // Send the item ID
-                putExtra("foodname", foodItem.foodname)  // Send item name
-                putExtra("price", foodItem.price)  // Send item price
-                putExtra("description", foodItem.description)  // Send item description
-            }
-            context.startActivity(editIntent)
-        }
-
-        // Set onClickListener for Delete icon
-        holder.icDelete.setOnClickListener {
-            deleteItem(foodItem.id, position)
-        }
+        holder.bind(foodItem, position)
     }
 
-    override fun getItemCount(): Int {
-        return itemList.size
-    }
+    override fun getItemCount(): Int = itemList.size
 
-    private fun deleteItem(itemId: Int, position: Int) {
-        // Call API to delete the item from the database
+    private fun deleteItem(itemId: String, position: Int) {
         apiService.deleteMenu(itemId.toString()).enqueue(object : Callback<Data> {
             override fun onResponse(call: Call<Data>, response: Response<Data>) {
                 if (response.isSuccessful) {
-                    // Remove the item from the list
                     itemList.removeAt(position)
                     notifyItemRemoved(position)
                     Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
@@ -91,12 +62,42 @@ class AdminAdapter(
         })
     }
 
-    // ViewHolder for each item in the RecyclerView
-    class AdminViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val txtId: TextView = view.findViewById(R.id.txtId)
-        val txtNama: TextView = view.findViewById(R.id.txtNama)
-        val icEdit: ImageView = view.findViewById(R.id.iconEdit)
-        val icDelete: ImageView = view.findViewById(R.id.iconDelete)
-        val icView: ImageView = view.findViewById(R.id.iconView)
+    inner class AdminViewHolder(private val binding: ActivityAdminListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(foodItem: Data, position: Int) {
+            // Mengisi data ke elemen tampilan menggunakan binding
+            binding.txtId.text = (position + 1).toString()
+            binding.txtNama.text = foodItem.foodname ?: ""
+            binding.iconEdit.setImageResource(R.drawable.ic_edit)
+            binding.iconDelete.setImageResource(R.drawable.ic_delete)
+            binding.iconView.setImageResource(R.drawable.ic_eyes)
+
+            // Aksi klik untuk melihat detail
+            binding.root.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java).apply {
+                    putExtra("food_name", foodItem.foodname)
+                    putExtra("food_price", foodItem.price)
+                    putExtra("food_description", foodItem.description)
+                }
+                context.startActivity(intent)
+            }
+
+            // Aksi klik untuk mengedit
+            binding.iconEdit.setOnClickListener {
+                val editIntent = Intent(context, AdminEditActivity::class.java).apply {
+                    putExtra("_id", foodItem.id)
+                    putExtra("foodname", foodItem.foodname)
+                    putExtra("price", foodItem.price)
+                    putExtra("description", foodItem.description)
+                }
+                context.startActivity(editIntent)
+            }
+
+            // Aksi klik untuk menghapus
+            binding.iconDelete.setOnClickListener {
+                deleteItem(foodItem.id, position)
+            }
+        }
     }
 }

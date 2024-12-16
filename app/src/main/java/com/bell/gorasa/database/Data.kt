@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: String,
     @SerializedName("food_name")
     val foodname: String,
     @SerializedName("price")

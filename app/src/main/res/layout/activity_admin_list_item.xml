@@ -4,20 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:padding="16dp"
     android:gravity="center_vertical"
-    android:background="?attr/selectableItemBackground">
+    android:background="@color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="8dp">
 
     <!-- Rounded Image -->
     <ImageView
         android:id="@+id/imgThumbnail"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/food"
         android:contentDescription="Thumbnail Image"
         android:background="@drawable/rounded_background" />
+
     <!-- ID -->
     <TextView
         android:id="@+id/txtId"
@@ -34,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Nama Item"
+        android:text="Nama Item : Makanan"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:paddingStart="8dp" />
@@ -46,6 +49,7 @@
         android:layout_height="32dp"
         android:src="@drawable/ic_edit"
         android:contentDescription="Edit Icon"
+        android:layout_marginStart="8dp"
         android:padding="4dp" />
 
     <!-- Icon View -->
@@ -55,6 +59,7 @@
         android:layout_height="32dp"
         android:src="@drawable/ic_eyes"
         android:contentDescription="View Icon"
+        android:layout_marginStart="8dp"
         android:padding="4dp" />
 
     <!-- Icon Delete -->
@@ -64,6 +69,7 @@
         android:layout_height="32dp"
         android:src="@drawable/ic_delete"
         android:contentDescription="Delete Icon"
+        android:layout_marginStart="8dp"
         android:padding="4dp" />
 
 </LinearLayout>

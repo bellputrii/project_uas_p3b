@@ -5,14 +5,15 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bell.gorasa.AdminAdapter
+import com.bell.gorasa.LoginActivity
+import com.bell.gorasa.PrefManager
 import com.bell.gorasa.R
 import com.bell.gorasa.database.Data
+import com.bell.gorasa.databinding.FragmentHomeAdminBinding
 import com.bell.gorasa.network.APIClient
 import com.bell.gorasa.network.APIService
 import retrofit2.Call
@@ -20,15 +21,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @Suppress("DEPRECATION")
-class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
+class  HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var binding: FragmentHomeAdminBinding
+    private lateinit var adapterAdmin: AdminAdapter
     private lateinit var itemList: ArrayList<Data>
-    private lateinit var adapteradmin: AdminAdapter
-    private lateinit var btnLogout: Button
-    private lateinit var btnTambahData: Button
-    private lateinit var btnRefresh: Button // Tambahkan tombol refresh
-
     private val apiService: APIService = APIClient.getInstance()
 
     companion object {
@@ -38,54 +35,56 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inisialisasi RecyclerView
-        recyclerView = view.findViewById(R.id.menuRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding = FragmentHomeAdminBinding.bind(view)
+
+        // Mengakses PrefManager
+        val prefManager = PrefManager.getInstance(requireContext())
+
+        // Inisialisasi RecyclerView dan Adapter
         itemList = ArrayList()
+        adapterAdmin = AdminAdapter(requireContext())
+        binding.menuRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.menuRecyclerView.adapter = adapterAdmin
 
-        // Inisialisasi tombol-tombol
-        btnLogout = view.findViewById(R.id.btnLogout)
-        btnTambahData = view.findViewById(R.id.btnTambahData)
-        btnRefresh = view.findViewById(R.id.btnRefresh) // Inisialisasi tombol refresh
+        // Menampilkan username yang tersimpan di PrefManager
+        val username = prefManager.getUsername()
+        binding.titleTextView.text = "Selamat datang, $username"  // Menampilkan username di TextView
 
-        // Event listener untuk tombol tambah data
-        btnTambahData.setOnClickListener {
+        // Tombol tambah data
+        binding.btnTambahData.setOnClickListener {
             val intent = Intent(requireContext(), AdminAddActivity::class.java)
             startActivityForResult(intent, ADD_MENU_REQUEST_CODE)
         }
 
-        // Event listener untuk tombol logout
-        btnLogout.setOnClickListener {
-            showLogoutConfirmation()
+        // Tombol logout
+        binding.btnLogout.setOnClickListener {
+            showLogoutConfirmation(prefManager)  // Menggunakan PrefManager untuk logout
         }
 
-        // Event listener untuk tombol refresh
-        btnRefresh.setOnClickListener {
-            fetchMenu() // Panggil untuk mengambil data ulang dari API
-            Toast.makeText(requireContext(), "Data refreshed", Toast.LENGTH_SHORT).show()
+        // Tombol refresh
+        binding.btnRefresh.setOnClickListener {
+            fetchMenu(true) // Refresh dengan notifikasi
         }
 
-        // Mengambil data dari API
-        fetchMenu()
-
-        // Set listener untuk mendengarkan hasil dari AdminAddActivity
-        requireActivity().supportFragmentManager.setFragmentResultListener("menuAdded", viewLifecycleOwner) { _, _ ->
-            fetchMenu()
-        }
+        // Ambil data menu pertama kali
+        fetchMenu(false)
     }
 
-    private fun fetchMenu() {
+    private fun setFurniture(dataList: List<Data>) {
+        itemList.clear()
+        itemList.addAll(dataList)
+        adapterAdmin.setItemList(itemList)
+    }
+
+    private fun fetchMenu(showNotification: Boolean) {
         apiService.getAllMenu().enqueue(object : Callback<List<Data>> {
             override fun onResponse(call: Call<List<Data>>, response: Response<List<Data>>) {
                 if (response.isSuccessful) {
-                    val menu = response.body()
-                    if (menu != null) {
-                        itemList.clear()
-                        itemList.addAll(menu)
-
-                        // Menghubungkan data ke RecyclerView
-                        adapteradmin = AdminAdapter(requireContext(), itemList)
-                        recyclerView.adapter = adapteradmin
+                    response.body()?.let {
+                        setFurniture(it)
+                        if (showNotification) {
+                            Toast.makeText(requireContext(), "Data refreshed", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
                     Toast.makeText(requireContext(), "Failed to load data", Toast.LENGTH_SHORT).show()
@@ -98,20 +97,24 @@ class HomeAdminFragment : Fragment(R.layout.fragment_home_admin) {
         })
     }
 
-    private fun showLogoutConfirmation() {
+    private fun showLogoutConfirmation(prefManager: PrefManager) {
         AlertDialog.Builder(requireContext())
             .setTitle("Konfirmasi Logout")
             .setMessage("Apakah Anda yakin ingin keluar dari aplikasi?")
-            .setPositiveButton("Ya") { _, _ -> requireActivity().finishAffinity() }
+            .setPositiveButton("Ya") { _, _ ->
+                prefManager.clear() // Menghapus sesi
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish() // Tutup AdminActivity
+            }
             .setNegativeButton("Tidak", null)
             .show()
     }
 
-    // Menangani hasil dari AdminAddActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_MENU_REQUEST_CODE && resultCode == RESULT_OK) {
-            fetchMenu() // Panggil ulang untuk mengambil data yang baru ditambahkan
+            fetchMenu(false)
         }
     }
 }

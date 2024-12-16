@@ -14,17 +14,18 @@ import retrofit2.Response
 
 class AdminEditActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAdminEditBinding  // Menggunakan ViewBinding
-    private var foodId: Int? = null
+    private lateinit var binding: ActivityAdminEditBinding
+    private var foodId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Terima data dari Intent
-        foodId = intent.getStringExtra("_id")?.toIntOrNull() // Mengonversi String ke Int
-        if (foodId == null) {
+        // Terima data dari Intent dengan null safety
+        foodId = intent.getStringExtra("_id")
+
+        if (foodId.isNullOrEmpty()) {
             Toast.makeText(this, "Invalid food ID", Toast.LENGTH_SHORT).show()
             finish()
             return
@@ -35,9 +36,7 @@ class AdminEditActivity : AppCompatActivity() {
 
         // Tombol untuk update data menu
         binding.btnUpdate.setOnClickListener {
-            if (foodId != null) {
-                updateMenu(foodId!!)
-            }
+            foodId?.let { updateMenu(it) }
         }
 
         // Tombol untuk cancel atau kembali
@@ -47,19 +46,18 @@ class AdminEditActivity : AppCompatActivity() {
     }
 
     // Fungsi untuk mengambil data menu berdasarkan ID
-    private fun fetchMenuData(id: Int) {
+    private fun fetchMenuData(id: String) {
         val apiService = APIClient.getInstance()
-
-        apiService.getMenuById(id.toString()).enqueue(object : Callback<Data> {  // Kirim id sebagai String ke API
+        apiService.getMenuById(id).enqueue(object : Callback<Data> {
             override fun onResponse(call: Call<Data>, response: Response<Data>) {
                 if (response.isSuccessful) {
                     val data = response.body()
-                    if (data != null) {
-                        // Set data ke ViewBinding
-                        binding.etFoodname.setText(data.foodname)
-                        binding.etFoodprice.setText(data.price)
-                        binding.etFooddescription.setText(data.description)
-                    } else {
+                    data?.let {
+                        // Isi data ke UI melalui ViewBinding
+                        binding.etFoodname.setText(it.foodname)
+                        binding.etFoodprice.setText(it.price)
+                        binding.etFooddescription.setText(it.description)
+                    } ?: run {
                         Toast.makeText(this@AdminEditActivity, "Data not found", Toast.LENGTH_SHORT).show()
                         finish()
                     }
@@ -75,7 +73,7 @@ class AdminEditActivity : AppCompatActivity() {
     }
 
     // Fungsi untuk update data menu
-    private fun updateMenu(id: Int) {
+    private fun updateMenu(id: String) {
         val updatedName = binding.etFoodname.text.toString().trim()
         val updatedPrice = binding.etFoodprice.text.toString().trim()
         val updatedDescription = binding.etFooddescription.text.toString().trim()
@@ -83,18 +81,16 @@ class AdminEditActivity : AppCompatActivity() {
         if (updatedName.isNotBlank() && updatedPrice.isNotBlank() && updatedDescription.isNotBlank()) {
             // Buat objek Data baru untuk update
             val updatedData = Data(
-                id = id,
+                id = "",
                 foodname = updatedName,
                 price = updatedPrice,
                 description = updatedDescription
             )
 
             val apiService = APIClient.getInstance()
-
-            // Mengonversi objek menjadi RequestBody menggunakan toRequestBody
             val jsonRequest = updatedData.toJson().toRequestBody("application/json".toMediaType())
 
-            apiService.updateMenu(id.toString(), jsonRequest).enqueue(object : Callback<Data> {  // Kirim id sebagai String
+            apiService.updateMenu(id, jsonRequest).enqueue(object : Callback<Data> {
                 override fun onResponse(call: Call<Data>, response: Response<Data>) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@AdminEditActivity, "Menu updated successfully", Toast.LENGTH_SHORT).show()

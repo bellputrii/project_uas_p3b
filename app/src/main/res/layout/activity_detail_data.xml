@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
+    android:padding="16dp"
     android:background="@color/yellow"
     tools:context=".DetailActivity">
 
+    <!-- Title -->
     <TextView
         android:id="@+id/txt2_data_menu_makanan"
         android:layout_width="wrap_content"
@@ -15,89 +16,93 @@
         android:text="Detail Menu Makanan"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:layout_margin="30dp"
-        android:textSize="28sp"
+        android:layout_margin="16dp"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Content -->
     <LinearLayout
         android:id="@+id/layout_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="30dp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_card_background"
+        android:elevation="8dp"
         app:layout_constraintTop_toBottomOf="@id/txt2_data_menu_makanan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_back">
 
+        <!-- Food Image -->
         <ImageView
             android:id="@+id/img_food_preview"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:src="@drawable/food"
-            android:contentDescription="Food Image Preview"
-            android:background="@drawable/rounded_background" />
+            android:contentDescription="Food Image Preview" />
 
+        <!-- Food Name -->
         <TextView
             android:id="@+id/tv_dtl_name_food"
-            android:text="Black Paper Noodle"
+            android:text="Black Pepper Noodle"
             android:textStyle="bold"
-            android:textSize="25dp"
-            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:padding="13dp" />
+            android:gravity="center"
+            android:paddingVertical="8dp" />
 
+        <!-- Food Price -->
         <TextView
             android:id="@+id/tv_dtl_price_food"
-            android:text="IDR 35000"
+            android:text="IDR 35,000"
             android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:drawablePadding="10dp"
-            android:padding="13dp" />
+            android:gravity="center"
+            android:paddingVertical="8dp" />
 
+        <!-- Scrollable Description -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:fillViewport="true">
+            android:layout_marginTop="16dp">
 
             <TextView
                 android:id="@+id/tv_dtl_description_food"
-                android:text="Mie dengan cita rasa khas lada hitam yang menggugah selera. Dimasak dengan saus lada hitam yang kaya rasa, mie ini disajikan bersama potongan daging sapi atau ayam yang empuk, paprika, dan bawang bombay. Tekstur mie yang kenyal berpadu sempurna dengan aroma pedas gurih, menjadikannya pilihan tepat untuk pecinta makanan beraroma kuat dan berbumbu. Cocok dinikmati selagi hangat!"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/white"
+                android:text="Mie dengan cita rasa khas lada hitam yang menggugah selera. Dimasak dengan saus lada hitam yang kaya rasa, mie ini disajikan bersama potongan daging sapi atau ayam yang empuk, paprika, dan bawang bombay. Tekstur mie yang kenyal berpadu sempurna dengan aroma pedas gurih, menjadikannya pilihan tepat untuk pecinta makanan berbumbu. Cocok dinikmati selagi hangat!"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:padding="13dp" />
+                android:lineSpacingExtra="4dp"
+                android:paddingVertical="4dp" />
         </ScrollView>
 
     </LinearLayout>
 
+    <!-- Back Button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_back"
         android:layout_width="200dp"
-        android:layout_height="35dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:layout_height="50dp"
         android:text="Kembali"
-        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:textAllCaps="false"
-        android:background="@color/blue"
+        android:background="@drawable/rounded_button_background"
         android:textColor="@color/yellow"
-        android:elevation="5dp"
+        android:elevation="6dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
